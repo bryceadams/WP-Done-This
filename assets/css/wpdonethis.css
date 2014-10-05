@@ -1,0 +1,12 @@
+.wpdonethis-widget #wpdonethis-form #wpdonethis-done {
+	padding: 6px 2px;
+}
+.wpdonethis-widget #wpdonethis-results ul.ajax li:first-child {
+	font-weight: bold;
+}
+.wpdonethis-widget #wpdonethis-results ul li {
+	margin-bottom: 5px;
+}
+.wpdonethis-widget #wpdonethis-results ul li .date {
+	font-style: italic;
+}
