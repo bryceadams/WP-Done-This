@@ -174,14 +174,6 @@ if ( ! class_exists( 'WP_Done_This_Init' ) ) {
 				        	$api_key = get_the_author_meta( 'wpdonethis_api_key', $current_user );
 				        	$team_slug = get_the_author_meta( 'wpdonethis_team_slug', $current_user );
 
-				        	// Check if transient for authenticate data exists, if not - set it!
-							if ( false === ( $authenticate = get_transient( 'wpdonethis_authenticate' ) ) ) {
-
-								$authenticate = $wp_done_this_api->authenticate( $api_key, $team_slug );
-							    set_transient( 'wpdonethis_authenticate', $authenticate, 30 * DAY_IN_SECONDS ); // save for a month
-
-							}
-
 							// Transient for API owner
 							if ( false === ( $owner = get_transient( 'wpdonethis_owner' ) ) ) {
 
@@ -189,6 +181,9 @@ if ( ! class_exists( 'WP_Done_This_Init' ) ) {
 							    set_transient( 'wpdonethis_owner', $owner, 30 * DAY_IN_SECONDS ); // save for a month
 
 							}
+
+							// Check if transient for authenticate data exists, if not - set it!
+							$authenticate = get_transient( 'wpdonethis_authenticate' );
 								
 				        	if ( $authenticate == 1 ) {
 				        		echo '<span style="color:green;font-weight:bold;">';
@@ -238,14 +233,21 @@ if ( ! class_exists( 'WP_Done_This_Init' ) ) {
 			update_usermeta( $user_id, 'wpdonethis_api_key', sanitize_text_field( $_POST['wpdonethis_api_key'] ) );
 			update_usermeta( $user_id, 'wpdonethis_team_slug', sanitize_text_field( $_POST['wpdonethis_team_slug'] ) );
 
-			// Delete auth transient on settings save
-			if ( get_transient( 'wpdonethis_authenticate' ) ) {
-				delete_transient( 'wpdonethis_authenticate' );
-			}
+			$api_key = get_the_author_meta( 'wpdonethis_api_key', $user_id );
+			$team_slug = get_the_author_meta( 'wpdonethis_team_slug', $user_id );
 
+			// Delete auth transient on settings save
+			delete_transient( 'wpdonethis_authenticate' );
+			
 			// Delete owner transient on settings save
-			if ( get_transient( 'wpdonethis_owner' ) ) {
-				delete_transient( 'wpdonethis_owner' );
+			delete_transient( 'wpdonethis_owner' );
+
+			// Check if transient for authenticate data exists, if not - set it!
+			if ( false === ( $authenticate = get_transient( 'wpdonethis_authenticate' ) ) && $api_key ) {
+
+				$authenticate = $wp_done_this_api->authenticate( $api_key, $team_slug );
+			    set_transient( 'wpdonethis_authenticate', $authenticate, 30 * DAY_IN_SECONDS ); // save for a month
+
 			}
 
 		}
