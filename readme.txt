@@ -16,6 +16,8 @@ If you use [iDoneThis](https://idonethis.com/accounts/register/?r=ucJKaPL1kpom)*
 
 It will add a new widget that allows users to submit their 'dones' and view their previously submitted dones for that day.
 
+https://vimeo.com/108086734
+
 After activating and adding the widget, your users (who want to use it) need to enter their:
 
 * [iDoneThis API Key](https://idonethis.com/api/get_token/)
