@@ -230,6 +230,8 @@ if ( ! class_exists( 'WP_Done_This_Init' ) ) {
 				return false;
 			}
 
+			$wp_done_this_api 	= new WP_Done_This_API;
+
 			update_usermeta( $user_id, 'wpdonethis_api_key', sanitize_text_field( $_POST['wpdonethis_api_key'] ) );
 			update_usermeta( $user_id, 'wpdonethis_team_slug', sanitize_text_field( $_POST['wpdonethis_team_slug'] ) );
 
