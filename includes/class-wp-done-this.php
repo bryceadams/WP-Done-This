@@ -175,7 +175,7 @@ if ( ! class_exists( 'WP_Done_This_Init' ) ) {
 				        	$team_slug = get_the_author_meta( 'wpdonethis_team_slug', $current_user );
 
 							// Transient for API owner
-							if ( false === ( $owner = get_transient( 'wpdonethis_owner' ) ) ) {
+							if ( false === ( $owner = get_transient( 'wpdonethis_owner' ) ) && $api_key ) {
 
 								$owner	= $wp_done_this_api->owner( $api_key, $team_slug );
 							    set_transient( 'wpdonethis_owner', $owner, 30 * DAY_IN_SECONDS ); // save for a month
